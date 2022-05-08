@@ -20,5 +20,8 @@ namespace Data.Models
         [Column(TypeName = "varchar")]
         [StringLength(15)]
         public string ExamType { get; set; }
+        public virtual ICollection<Question> Questions { get; set; }
+        public int LessonId { get; set; }
+        public virtual Lesson Lesson { get; set; }
     }
 }
