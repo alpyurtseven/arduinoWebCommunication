@@ -22,5 +22,7 @@ namespace Data.Models
         public string Answer {get; set; }
 
         public bool QuestionTye { get; set; }
+        public int ExanId { get; set; }
+        public virtual Exam Exam { get; set; }
     }
 }

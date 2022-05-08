@@ -52,6 +52,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\202205081301115_created relatios.cs" />
+    <Compile Include="Migrations\202205081301115_created relatios.designer.cs">
+      <DependentUpon>202205081301115_created relatios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Context.cs" />
     <Compile Include="Models\Exam.cs" />
     <Compile Include="Models\Lesson.cs" />
@@ -60,7 +65,11 @@
     <Compile Include="Models\UserLesson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202205081301115_created relatios.resx">
+      <DependentUpon>202205081301115_created relatios.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

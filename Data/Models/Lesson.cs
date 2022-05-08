@@ -22,5 +22,6 @@ namespace Data.Models
         public string LessonCode { get; set; }
 
         public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Exam> Exams { get; set; }
     }
 }
