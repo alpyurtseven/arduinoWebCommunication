@@ -9,6 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "arduinoWebCommunication", "
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{8D26B3C7-44DD-4CDF-A66D-22A285122346}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F0DDF502-0E7D-4F8E-A8E9-3AD0C4EE9893} = {F0DDF502-0E7D-4F8E-A8E9-3AD0C4EE9893}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{F0DDF502-0E7D-4F8E-A8E9-3AD0C4EE9893}"
 EndProject

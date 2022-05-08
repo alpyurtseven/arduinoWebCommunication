@@ -10,6 +10,10 @@ namespace Data.Models
     {
         public Context()
               : base("name=Context") {
+            Database.SetInitializer(new Configuration());
+            Configuration.ProxyCreationEnabled = false;
+            Configuration.LazyLoadingEnabled = false;
+
         }
 
         public DbSet<User> Users { get; set; }
@@ -18,5 +22,13 @@ namespace Data.Models
 
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<Question> Questions { get; set; }
+    }
+
+    public class Configuration : CreateDatabaseIfNotExists<Context>
+    {
+        protected override void Seed(Context context)
+        {
+        }
+
     }
 }

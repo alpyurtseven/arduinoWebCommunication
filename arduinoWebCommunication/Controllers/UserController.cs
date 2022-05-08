@@ -20,11 +20,12 @@ namespace arduinoWebCommunication.Controllers
         }
 
         // GET: User/Details/5
-        public User Details(int id)
+        public string Details(int id)
         {
             using (Context cn = new Context())
             {
-                return cn.Users.Single(x => x.UserId == id); ;
+               var user =  cn.Users.Single(x => x.UserId == id);
+                return user.Name;
             }
         }
 
