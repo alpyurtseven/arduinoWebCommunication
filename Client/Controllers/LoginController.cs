@@ -13,5 +13,13 @@ namespace Client.Controllers
         {
             return View();
         }
+
+         // POST: Login
+         [HttpPost]
+        public ActionResult Index()
+        {
+            
+            return View();
+        }
     }
 }
