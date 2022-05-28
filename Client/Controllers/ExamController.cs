@@ -15,21 +15,107 @@ namespace Client.Controllers
         // GET: Exam
         public async Task<ActionResult> Index()
         {
-            using (HttpClient cl = new HttpClient())
-            {
-                var response = await cl.GetAsync("https://localhost:44314/api/exam");
-                List<Exam> model;
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    model = JsonConvert.DeserializeObject<List<Exam>>(response.Content.ReadAsStringAsync().Result);
-                }
-                else
-                {
-                    model = new List<Exam>();
-                }
+            //using (HttpClient cl = new HttpClient())
+            //{
+            //    var response = await cl.GetAsync("https://localhost:44314/api/exam");
+            //    List<Exam> model;
+            //    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            //    {
+            //        model = JsonConvert.DeserializeObject<List<Exam>>(response.Content.ReadAsStringAsync().Result);
+            //    }
+            //    else
+            //    {
+            //        model = new List<Exam>();
+            //    }
 
-                return View(model);
-            }
+            //    return View(model);
+            //}
+
+            return View(new List<Exam>());
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Detail(int id)
+        {
+            //using (HttpClient cl = new HttpClient())
+            //{
+            //    var response = await cl.GetAsync("https://localhost:44314/api/exam/"+id);
+            //    Exam model;
+            //    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            //    {
+            //        model = JsonConvert.DeserializeObject <Exam>(response.Content.ReadAsStringAsync().Result);
+            //    }
+            //    else
+            //    {
+            //        model = new Exam();
+            //    }
+
+            //    return View(model);
+            //}
+            return View(new Exam());
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Edit(int id)
+        {
+            //using (HttpClient cl = new HttpClient())
+            //{
+            //    var response = await cl.GetAsync("https://localhost:44314/api/exam/"+id);
+            //    Exam model;
+            //    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            //    {
+            //        model = JsonConvert.DeserializeObject <Exam>(response.Content.ReadAsStringAsync().Result);
+            //    }
+            //    else
+            //    {
+            //        model = new Exam();
+            //    }
+
+            //    return View(model);
+            //}
+            return View(new Exam());
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Create()
+        {
+            //using (HttpClient cl = new HttpClient())
+            //{
+            //    var response = await cl.GetAsync("https://localhost:44314/api/exam/"+id);
+            //    Exam model;
+            //    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            //    {
+            //        model = JsonConvert.DeserializeObject <Exam>(response.Content.ReadAsStringAsync().Result);
+            //    }
+            //    else
+            //    {
+            //        model = new Exam();
+            //    }
+
+            //    return View(model);
+            //}
+            return View(new Exam());
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> App(int id)
+        {
+            //using (HttpClient cl = new HttpClient())
+            //{
+            //    var response = await cl.GetAsync("https://localhost:44314/api/exam/"+id);
+            //    Exam model;
+            //    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            //    {
+            //        model = JsonConvert.DeserializeObject <Exam>(response.Content.ReadAsStringAsync().Result);
+            //    }
+            //    else
+            //    {
+            //        model = new Exam();
+            //    }
+
+            //    return View(model);
+            //}
+            return View(new Exam());
         }
     }
 }
