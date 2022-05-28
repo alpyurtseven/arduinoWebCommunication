@@ -1,52 +1,118 @@
-﻿using Data.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Web;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
-using System.Web.Mvc;
+using System.Web.Http.Description;
+using Data.Models;
 
 namespace arduinoWebCommunication.Controllers
 {
     public class ExamController : ApiController
     {
-        // GET: Exam
-        public List<Exam> Get()
+        private Context db = new Context();
+
+        // GET: api/Exam
+        public IQueryable<Exam> GetExams()
         {
-            using (Context cn = new Context())
-            {
-                var exams = cn.Exams.Include("Lesson").ToList();
-                return exams;
-            }
+            return db.Exams;
         }
 
-        // GET: Exam/Details/5
-        public Exam Details(int id)
+        // GET: api/Exam/5
+        [ResponseType(typeof(Exam))]
+        public IHttpActionResult GetExam(int id)
         {
-            using (Context cn = new Context())
+            Exam exam = db.Exams.Find(id);
+            if (exam == null)
             {
-                return cn.Exams.Single(x => x.ExamId == id); ;
+                return NotFound();
             }
+
+            return Ok(exam);
         }
 
-        // GET: Exam/Create
-        public void Create(Exam exam)
+        // PUT: api/Exam/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutExam(int id, Exam exam)
         {
-           /* using (Context cn = new Context())
+            if (!ModelState.IsValid)
             {
+                return BadRequest(ModelState);
+            }
 
-                p.Tmt = p.Stock * p.Mt;
-                if (p.CategoryId == 6)
+            if (id != exam.ExamId)
+            {
+                return BadRequest();
+            }
+
+            db.Entry(exam).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ExamExists(id))
                 {
-                    p.mt2 = (p.Width / 1000 * p.Height / 1000);
-                    p.Tmt = p.mt2 * p.Stock;
-
+                    return NotFound();
                 }
-                p.Kg = p.Mkg * p.Tmt;
-                p.mt2 = p.Height * p.Width;
-                cn.Products.Add(p);
-                cn.SaveChanges();
-            }*/
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        // POST: api/Exam
+        [ResponseType(typeof(Exam))]
+        public IHttpActionResult PostExam(Exam exam)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            db.Exams.Add(exam);
+            db.SaveChanges();
+
+            return CreatedAtRoute("DefaultApi", new { id = exam.ExamId }, exam);
+        }
+
+        // DELETE: api/Exam/5
+        [ResponseType(typeof(Exam))]
+        public IHttpActionResult DeleteExam(int id)
+        {
+            Exam exam = db.Exams.Find(id);
+            if (exam == null)
+            {
+                return NotFound();
+            }
+
+            db.Exams.Remove(exam);
+            db.SaveChanges();
+
+            return Ok(exam);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        private bool ExamExists(int id)
+        {
+            return db.Exams.Count(e => e.ExamId == id) > 0;
         }
     }
 }
