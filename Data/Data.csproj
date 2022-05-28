@@ -56,6 +56,10 @@
     <Compile Include="Migrations\202205081301115_created relatios.designer.cs">
       <DependentUpon>202205081301115_created relatios.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205280853230_dbUpdate.cs" />
+    <Compile Include="Migrations\202205280853230_dbUpdate.designer.cs">
+      <DependentUpon>202205280853230_dbUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Context.cs" />
     <Compile Include="Models\Exam.cs" />
@@ -68,6 +72,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202205081301115_created relatios.resx">
       <DependentUpon>202205081301115_created relatios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205280853230_dbUpdate.resx">
+      <DependentUpon>202205280853230_dbUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

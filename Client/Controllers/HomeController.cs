@@ -8,9 +8,10 @@ namespace Client.Controllers
 {
     public class HomeController : Controller
     {
+        [Authorize]
         public ActionResult Index()
         {
-            return View();
+            return View("Index");
         }
 
         public ActionResult About()
