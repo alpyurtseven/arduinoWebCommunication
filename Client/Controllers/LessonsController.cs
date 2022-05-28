@@ -13,5 +13,9 @@ namespace Client.Controllers
         {
             return View();
         }
+        public ActionResult Lesson(int id)
+        {
+            return View();
+        }
     }
 }
