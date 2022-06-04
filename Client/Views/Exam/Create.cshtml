@@ -20,17 +20,35 @@
     </div>
 </div>
 
-<div class="text-group">
-    <div class="form-group">
-        <label for="exampleFormControlTextarea1">Soru</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+<div class="questions">
+    <div class="question"> 
+        <div class="text-group">
+            <div class="form-group">
+                <label class="questionName" for="exampleFormControlTextarea1">Soru 1</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="text-group">
+            <div class="form-group">
+                <label class="answerName" for="exampleFormControlTextarea1">Cevap 1</label>
+                <textarea class="form-control" id="exampleFormControlTextarea2" rows="3"></textarea>
+            </div>
+        </div>
     </div>
 </div>
+
+
 <a href="#" class="btn btn-warning btn-icon-split" data-toggle="modal" data-target="#addQuestion">
     <span class="icon text-white-50">
         <i class="fas fa-plus"></i>
     </span>
-    <span class="text">Soru Ekle</span>
+    <span onclick="addQuestions()" class="text">Soru Ekle</span>
+</a>
+<a href="#" class="btn btn-success btn-icon-split" style="margin-right:auto" >
+    <span class="icon text-white-50">
+        <i class="fas fa-plus"></i>
+    </span>
+    <span  class="text">Kaydet</span>
 </a>
 <br />
 <ul class="list-group">
@@ -63,4 +81,14 @@
 </ul>
 
 
+<script>
+    const addQuestions = () => {
+        var question = $(".question:first").clone();
 
+        $(".questionName", question).text("Soru " + ($(".question").length + 1));
+
+        $(".answerName", question).text("Cevap " + ($(".question").length + 1));
+
+        $(".questions").append(question);
+    }
+</script>
