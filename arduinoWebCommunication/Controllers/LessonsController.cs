@@ -15,7 +15,7 @@ namespace arduinoWebCommunication.Controllers
     public class LessonsController : ApiController
     {
         private Context db = new Context();
-
+        
         // GET: api/Lessons
         public IQueryable<Lesson> GetLessons()
         {
@@ -26,7 +26,17 @@ namespace arduinoWebCommunication.Controllers
         [ResponseType(typeof(Lesson))]
         public IHttpActionResult GetLesson(int id)
         {
-            Lesson lesson = db.Lessons.Find(id);
+            Lesson lesson;
+
+            try
+            {
+                lesson = db.Lessons.Include(z => z.Users).Include(z => z.Exams).First(z => z.LessonId == id);
+            }
+            catch (Exception e)
+            {
+                lesson = null;
+            }
+            
             if (lesson == null)
             {
                 return NotFound();
