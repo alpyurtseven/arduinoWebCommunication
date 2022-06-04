@@ -36,5 +36,27 @@ namespace Client.Controllers
 
             return PartialView(model);
         }
+        public async Task<ActionResult> Detail(int id)
+        {
+            var model = new Lesson();
+            if (ModelState.IsValid)
+            {
+                using (Data.Models.Context cn = new Data.Models.Context())
+                {
+                    using (HttpClient cl = new HttpClient())
+                    {
+                        var response = await cl.GetAsync("https://localhost:44314/api/lessons/"+id);
+
+                        if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                        {
+                            model = JsonConvert.DeserializeObject<Lesson>(response.Content.ReadAsStringAsync().Result);
+                        }
+                    }
+                }
+            }
+
+
+            return View(model);
+        }
     }
 }

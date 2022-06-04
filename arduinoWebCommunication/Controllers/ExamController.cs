@@ -7,11 +7,14 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using Data.Models;
 
+
 namespace arduinoWebCommunication.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ExamController : ApiController
     {
         private Context db = new Context();
@@ -81,6 +84,7 @@ namespace arduinoWebCommunication.Controllers
 
         // POST: api/Exam
         [ResponseType(typeof(Exam))]
+       
         public IHttpActionResult PostExam(Exam exam)
         {
             if (!ModelState.IsValid)

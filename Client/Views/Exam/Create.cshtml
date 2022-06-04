@@ -19,9 +19,14 @@
 
     </div>
 </div>
-
+<div class="text-group">
+    <div class="form-group">
+        <label class="ExamName" for="ExamName">Sınav Adı</label>
+        <textarea class="form-control" id="ExamName" rows="1"></textarea>
+    </div>
+</div>
 <div class="questions">
-    <div class="question"> 
+    <div class="question">
         <div class="text-group">
             <div class="form-group">
                 <label class="questionName" for="exampleFormControlTextarea1">Soru 1</label>
@@ -38,17 +43,17 @@
 </div>
 
 
-<a href="#" class="btn btn-warning btn-icon-split" data-toggle="modal" data-target="#addQuestion">
+<a href="#" onclick="addQuestions()" class="btn btn-warning btn-icon-split">
     <span class="icon text-white-50">
         <i class="fas fa-plus"></i>
     </span>
-    <span onclick="addQuestions()" class="text">Soru Ekle</span>
+    <span  >Soru Ekle</span>
 </a>
-<a href="#" class="btn btn-success btn-icon-split" style="margin-right:auto" >
+<a href="#" onclick="Create()" class="btn btn-success btn-icon-split" style="margin-right:auto">
     <span class="icon text-white-50">
         <i class="fas fa-plus"></i>
     </span>
-    <span  class="text">Kaydet</span>
+    <span class="text">Kaydet</span>
 </a>
 <br />
 <ul class="list-group">
@@ -90,5 +95,24 @@
         $(".answerName", question).text("Cevap " + ($(".question").length + 1));
 
         $(".questions").append(question);
+    };
+
+    const Create = () => {
+        var data = { 'ExamName': $("#ExamName").val(),'LessonId':"1" };
+            $.ajax({
+                url: "https://localhost:44314/api/Exam",
+                type: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Request-Headers': 'x- requested -with'
+                },
+                data: JSON.stringify(data),
+                success: function (response) {
+
+                },
+                error: function (response) {
+                    
+                }
+            });
     }
 </script>
