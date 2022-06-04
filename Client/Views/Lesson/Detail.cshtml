@@ -29,12 +29,9 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    @foreach(var item in Model.Users) {
+                    @foreach(var item in Model.Exams) {
                     <tr>
-                        <td>@item.Name</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
+                        <td>@item.ExamName</td>
                     </tr>
                     }
                     
@@ -68,18 +65,14 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                    </tr>
-                    <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                    </tr>
+                    @foreach (var item in Model.Users)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>-@item.Surname</td>
+                        </tr>
+                    }
+                   
                 </tbody>
             </table>
         </div>
