@@ -19,14 +19,23 @@ namespace arduinoWebCommunication.Controllers
         // GET: api/Exam
         public IQueryable<Exam> GetExams()
         {
-            return db.Exams;
+            return db.Exams.Include(x => x.Lesson);
         }
 
         // GET: api/Exam/5
         [ResponseType(typeof(Exam))]
         public IHttpActionResult GetExam(int id)
         {
-            Exam exam = db.Exams.Find(id);
+            Exam exam;
+            try
+            {
+                exam = db.Exams.Include(z => z.Lesson).First(x => x.ExamId == id);
+            }
+            catch (Exception e)
+            {
+                exam = null;
+            }
+
             if (exam == null)
             {
                 return NotFound();
@@ -89,13 +98,14 @@ namespace arduinoWebCommunication.Controllers
         [ResponseType(typeof(Exam))]
         public IHttpActionResult DeleteExam(int id)
         {
-            Exam exam = db.Exams.Find(id);
+            var exam = db.Exams.Find(id);
             if (exam == null)
             {
                 return NotFound();
             }
 
-            db.Exams.Remove(exam);
+            exam.Status = false;
+
             db.SaveChanges();
 
             return Ok(exam);

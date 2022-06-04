@@ -20,6 +20,7 @@ namespace Data.Models
         [Column(TypeName = "varchar")]
         [StringLength(15)]
         public string LessonCode { get; set; }
+        public bool Status { get; set; }
 
         public virtual ICollection<User> Users { get; set; }
         public virtual ICollection<Exam> Exams { get; set; }

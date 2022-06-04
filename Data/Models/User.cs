@@ -27,6 +27,7 @@ namespace Data.Models
         public string Password { get; set; }
 
         public bool Role { get; set; }
+        public bool Status { get; set; }
 
         public virtual ICollection<Lesson> Lessons { get; set; }
     }

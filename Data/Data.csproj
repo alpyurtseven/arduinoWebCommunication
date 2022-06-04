@@ -60,6 +60,10 @@
     <Compile Include="Migrations\202205280853230_dbUpdate.designer.cs">
       <DependentUpon>202205280853230_dbUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206041020338_dbupdae.cs" />
+    <Compile Include="Migrations\202206041020338_dbupdae.designer.cs">
+      <DependentUpon>202206041020338_dbupdae.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Context.cs" />
     <Compile Include="Models\Exam.cs" />
@@ -75,6 +79,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205280853230_dbUpdate.resx">
       <DependentUpon>202205280853230_dbUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206041020338_dbupdae.resx">
+      <DependentUpon>202206041020338_dbupdae.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
