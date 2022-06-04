@@ -10,7 +10,7 @@ using System.Web.Security;
 using Data.Models;
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
-using Context = Data.Models.Context;
+
 
 namespace Client.Controllers
 {
@@ -28,12 +28,12 @@ namespace Client.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (Context cn = new Context())
+                using (Data.Models.Context cn = new Data.Models.Context())
                 {
                     using (HttpClient cl = new HttpClient())
                     {
                         var response = await cl.GetAsync("https://localhost:44314/api/user/");
-                    
+
                         if (response.StatusCode == System.Net.HttpStatusCode.OK)
                         {
                             var model = JsonConvert.DeserializeObject<List<User>>(response.Content.ReadAsStringAsync().Result);
@@ -41,11 +41,11 @@ namespace Client.Controllers
 
                             if (loggedInUser != null)
                             {
-                                 FormsAuthentication.SetAuthCookie(loggedInUser.Name, false);
+                                FormsAuthentication.SetAuthCookie(loggedInUser.Name, false);
 
-                                 Session["UserType"] = loggedInUser.Name;
+                                Session["UserType"] = loggedInUser.Name;
 
-                                 return Json(new { redirectToUrl = Url.Action("Index", "Home") , userRole = loggedInUser.Role });
+                                return Json(new { redirectToUrl = Url.Action("Index", "Home"), userRole = loggedInUser.Role });
                             }
                         }
                     }

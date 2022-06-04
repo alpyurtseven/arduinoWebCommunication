@@ -1,0 +1,6 @@
+﻿@model List<Data.Models.Lesson>
+    
+@foreach (var data in Model)
+{
+    <a class="collapse-item" href="/lesson/detail/@data.LessonId">@data.LessonName</a>
+}
