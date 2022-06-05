@@ -37,7 +37,7 @@ namespace Client.Controllers
                         if (response.StatusCode == System.Net.HttpStatusCode.OK)
                         {
                             var model = JsonConvert.DeserializeObject<List<User>>(response.Content.ReadAsStringAsync().Result);
-                            var loggedInUser = model.Where(a => a.Name.Equals(user.Name) && a.Password.Equals(user.Password)).FirstOrDefault();
+                            var loggedInUser = model.Where(a => a.UserNumber.Equals(user.UserNumber) && a.Password.Equals(user.Password)).FirstOrDefault();
 
                             if (loggedInUser != null)
                             {
@@ -45,7 +45,7 @@ namespace Client.Controllers
 
                                 Session["UserType"] = loggedInUser.Name;
 
-                                return Json(new { redirectToUrl = Url.Action("Index", "Home"), userRole = loggedInUser.Role });
+                                return Json(new { redirectToUrl = Url.Action("Index", "Home"), userRole = loggedInUser.Role , userNumber = loggedInUser.UserId , userName = loggedInUser.Name, userSurname = loggedInUser.Surname});
                             }
                         }
                     }

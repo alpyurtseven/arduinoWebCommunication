@@ -87,20 +87,20 @@
         <script src="../../Template/js/sb-admin-2.min.js"></script>
         <script>
             $('form.user').submit((event) => {
+                event.preventDefault();
                 $.ajax({
                     url: "https://localhost:44315/Login/Index",
                     type: "POST",
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    data: JSON.stringify({ 'Name': $('input#name', $(event.target)).val(), 'Password': $('input#password', $(event.target)).val() }),
+                    data: JSON.stringify({ 'UserNumber': $('input#name', $(event.target)).val(), 'Password': $('input#password', $(event.target)).val() }),
                     success: function (response) {
                         window.location.pathname = response.redirectToUrl;
                         sessionStorage.setItem('UserTpe', response.userRole);
-
-                    },
-                    error: function (response) {
-                        window.location.replace(response.redirectToUrl);
+                        sessionStorage.setItem('UserId', response.userNumber);
+                        sessionStorage.setItem('UserName', response.userName);
+                        sessionStorage.setItem('UserSurname', response.userSurname);
                     }
                 });
 

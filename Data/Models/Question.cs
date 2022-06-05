@@ -16,6 +16,7 @@ namespace Data.Models
         [Column(TypeName = "varchar")]
         [StringLength(200)]
         public string QuestionContent { get; set; }
+        public int QuestionScore { get; set; }
 
         [Column(TypeName = "varchar")]
         [StringLength(15)]

@@ -8,13 +8,10 @@
 <!-- Large button groups (default and split) -->
 <div class="btn-group col-5 mb-5">
     <button class="btn  btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-        Large button
+        Ders Listesi
     </button>
-    <div class="dropdown-menu col-12">
-        @foreach (var item in Model)
-        {
-            <a class="dropdown-item" href="#">@item.Lesson.LessonName</a>
-        }
+    <div class="dropdown-menu col-12 lessons">
+        <a class="dropdown-item lesson" href="#">Tüm Dersler</a>
     </div>
 </div>
 
@@ -44,22 +41,25 @@
                 <tbody>
                     @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @item.Lesson.LessonName;
-                                </td>
-                                <td>
-                                    @item.ExamName;
-                                </td>
-                                <td>
-                                    <a href="/Exam/Detail/@item.ExamId" class="btn btn-warning btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-exclamation-triangle"></i>
-                                        </span>
-                                        <span class="text">Detay</span>
-                                    </a>
-                                </td>
-                            </tr>
+                            if (item.Status)
+                            {
+                                <tr id="@item.Lesson.LessonId">
+                                    <td>
+                                        @item.Lesson.LessonName
+                                    </td>
+                                    <td>
+                                        @item.ExamName
+                                    </td>
+                                    <td>
+                                        <a href="/Exam/Detail/@item.ExamId" examId="@item.ExamId" lessonId="LID @item.Lesson.LessonId" class="btn btn-warning btn-icon-split">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-exclamation-triangle"></i>
+                                            </span>
+                                            <span class="text">Detay</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
                         }
                 </tbody>
             </table>
@@ -68,4 +68,76 @@
 </div>
 
 
+<script>
+    window.UserIds = [];
+    const getLessons = () => {
+        $.ajax({
+            url: "https://localhost:44314/api/lessons/",
+            type: "GET",
+            success: function (response) {
+                response.map((lesson) => {
+                    lesson.Users.map((user) => {
+                        window.UserIds.push({"LessonId":lesson.LessonId,"UserId" : user.UserId});
+                    });
+
+                    var userExists = lesson.Users.filter((user) => {
+                            return user.UserId === Number(sessionStorage.UserId)
+                    });
+
+                    if (userExists.length > 0) {
+                        var lessonHTML = $('a.lesson:first').clone();
+
+                        $(lessonHTML).text(lesson.LessonName);
+                        $(lessonHTML).attr('id', lesson.LessonId);
+                    
+
+                        $('a.lesson:contains(Tüm):first').remove();
+                        $('div.lessons').append(lessonHTML);
+                        $('.dropdown-menu a.lesson:first').trigger('click');
+                    }
+                });
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
+    const filterByUser = (id, filtered) => {
+        typeof filtered === 'undefined'  ? filtered = fullData.filter((item, index) => (item[2].indexOf('LID ' + id) !== -1)) : filtered = filtered;
+
+        const filteredByUser = filtered.filter((item, index) => {
+            return UserIds.filter((lesson) => {
+                    return lesson.LessonId === 1;
+                }).filter((user) => {
+                    return user.UserId === Number(sessionStorage.UserId);
+                }).length > 0;
+        });
+
+        $("#dataTable").DataTable().clear();
+
+        $("#dataTable").DataTable().rows.add(filteredByUser).draw();
+
+        var button = $('tr a');
+        sessionStorage.UserTpe === 'false' && button.attr('href', 'exam/app/' + button.attr('examId')) && button.text('Sınavı Başlat');
+    }
+
+    const filterData = (id) => {
+        const filtered = fullData.filter((item, index) => item[2].indexOf('LID ' + id) !==-1);
+
+        filterByUser(id, filtered);
+    }
+
+    window.addEventListener('DOMContentLoaded',() => {
+        getLessons();
+        $("#dataTable").DataTable();
+        window.fullData = $("#dataTable").DataTable().data();
+        filterByUser($(this).attr('id'));
+        $(".dropdown-menu").on('click', 'a', function(){
+            $(".btn:first-child").text($(this).text());
+            $(".btn:first-child").val($(this).text());
+            filterData($(this).attr('id'));
+        });
+    });
+</script>
 

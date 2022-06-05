@@ -12,6 +12,7 @@ namespace Data.Models
     {
         [Key]
         public int UserId { get; set; }
+        public int UserNumber { get; set; }
 
         [Column(TypeName = "varchar")]
         [StringLength(30)]

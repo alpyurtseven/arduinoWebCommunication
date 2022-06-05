@@ -16,6 +16,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
 
+
     <!-- Custom styles for this template-->
     <link href="../../Template/css/sb-admin-2.min.css" rel="stylesheet">
 
@@ -78,7 +79,7 @@
                     <span>Sınavlarım</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item create-exam">
                 <a class="nav-link" href="/Exam/Create">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Sınav Oluştur</span>
@@ -112,7 +113,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Oğuzhan Demir</span>
+                                <span class="user-info mr-2 d-none d-lg-inline text-gray-600 small"></span>
                                 <img class="img-profile rounded-circle"
                                      src="../../Template/img/undraw_profile.svg">
                             </a>
@@ -181,16 +182,12 @@
 
     <!-- Core plugin JavaScript-->
     <script src="../../Template/vendor/jquery-easing/jquery.easing.min.js"></script>
-
+    <script src="../../Template/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="../../Template/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="../../Template/js/demo/datatables-demo.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="../../Template/js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="../../Template/vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="../../Template/js/demo/chart-area-demo.js"></script>
-    <script src="../../Template/js/demo/chart-pie-demo.js"></script>
 
     <script src="../../carousel-07/js/owl.carousel.min.js"></script>
     <script src="../../carousel-07/js/main.js"></script>
@@ -201,26 +198,30 @@
 </html>
 
 <script>
-     $(document).ready(() => {
-         var sendHttpRequest = (method, url) => {
-             var promise = new Promise((resolve, reject) => {
-                 var xhr = new XMLHttpRequest();
 
-                 xhr.open(method, url);
+    $(document).ready(() => {
+        $('.user-info').text(sessionStorage.UserName + ' ' + sessionStorage.UserSurname);
+        sessionStorage.UserTpe === 'false' && $('.create-exam').remove();
 
-                 xhr.onload = () => {
-                     resolve(xhr.response);
-                 };
+        var sendHttpRequest = (method, url) => {
+            var promise = new Promise((resolve, reject) => {
+                var xhr = new XMLHttpRequest();
 
-                 xhr.send();
-             });
+                xhr.open(method, url);
 
-             return promise;
-         };
+                xhr.onload = () => {
+                    resolve(xhr.response);
+                };
 
-         window.addEventListener('load',
-             function() {
-                 sendHttpRequest('GET', '/lesson/index').then((responseData) => { $('#collapseTwo .collapse-inner')[0].innerHTML += responseData })
-             });
-     })
+                xhr.send();
+            });
+
+            return promise;
+        };
+
+        window.addEventListener('load',
+            function() {
+                sendHttpRequest('GET', '/lesson/index').then((responseData) => { $('#collapseTwo .collapse-inner')[0].innerHTML += responseData })
+            });
+    })
 </script>
