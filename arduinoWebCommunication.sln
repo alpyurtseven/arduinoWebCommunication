@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31025.194
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "arduinoWebCommunication", "arduinoWebCommunication\arduinoWebCommunication.csproj", "{9495352F-8D0C-430F-91E1-90F00F8A7D80}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csp
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{F0DDF502-0E7D-4F8E-A8E9-3AD0C4EE9893}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArduinoConsole", "ArduinoConsole\ArduinoConsole.csproj", "{470E56F0-76C4-44B2-9523-CEC4C66E8406}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{F0DDF502-0E7D-4F8E-A8E9-3AD0C4EE9893}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0DDF502-0E7D-4F8E-A8E9-3AD0C4EE9893}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0DDF502-0E7D-4F8E-A8E9-3AD0C4EE9893}.Release|Any CPU.Build.0 = Release|Any CPU
+		{470E56F0-76C4-44B2-9523-CEC4C66E8406}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{470E56F0-76C4-44B2-9523-CEC4C66E8406}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{470E56F0-76C4-44B2-9523-CEC4C66E8406}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{470E56F0-76C4-44B2-9523-CEC4C66E8406}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

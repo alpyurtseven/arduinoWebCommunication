@@ -31,5 +31,6 @@ namespace Data.Models
         public bool Status { get; set; }
 
         public virtual ICollection<Lesson> Lessons { get; set; }
+        public virtual ICollection<Answer> Answers { get; set; }
     }
 }

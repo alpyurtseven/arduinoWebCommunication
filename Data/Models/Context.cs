@@ -20,6 +20,7 @@ namespace Data.Models
         public DbSet<Exam> Exams { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<Question> Questions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
     }
 
     public class Configuration : CreateDatabaseIfNotExists<Context>

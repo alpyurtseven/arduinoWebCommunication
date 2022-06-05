@@ -72,7 +72,20 @@
     <Compile Include="Migrations\202206051523183_questionUpdated.designer.cs">
       <DependentUpon>202206051523183_questionUpdated.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206051825079_answer.cs" />
+    <Compile Include="Migrations\202206051825079_answer.designer.cs">
+      <DependentUpon>202206051825079_answer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206051827191_answer2.cs" />
+    <Compile Include="Migrations\202206051827191_answer2.designer.cs">
+      <DependentUpon>202206051827191_answer2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206051842485_asnwer-updated.cs" />
+    <Compile Include="Migrations\202206051842485_asnwer-updated.designer.cs">
+      <DependentUpon>202206051842485_asnwer-updated.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\Context.cs" />
     <Compile Include="Models\Exam.cs" />
     <Compile Include="Models\Lesson.cs" />
@@ -96,6 +109,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202206051523183_questionUpdated.resx">
       <DependentUpon>202206051523183_questionUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206051825079_answer.resx">
+      <DependentUpon>202206051825079_answer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206051827191_answer2.resx">
+      <DependentUpon>202206051827191_answer2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206051842485_asnwer-updated.resx">
+      <DependentUpon>202206051842485_asnwer-updated.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
