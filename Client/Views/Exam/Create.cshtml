@@ -8,15 +8,8 @@
     <button class="btn  btn-primary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
         Ders Seç
     </button>
-    <div class="dropdown-menu col-12">
-
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Action</a>
-
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Action</a>
-
+    <div class="dropdown-menu  lessons col-12">
+        <a class="dropdown-item lesson" href="#">Action</a>
     </div>
 </div>
 <div class="text-group">
@@ -51,38 +44,21 @@
 </a>
 <a href="#" onclick="Create()" class="btn btn-success btn-icon-split" style="margin-right:auto">
     <span class="icon text-white-50">
-        <i class="fas fa-plus"></i>
+        <i class="fas fa-check"></i>
     </span>
     <span class="text">Kaydet</span>
 </a>
 <br />
-<ul class="list-group">
+<ul class="list-group users">
     <h2>Öğrenci Ekle</h2>
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">
-                Default checkbox
-            </label>
-        </div>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">
-                Default checkbox
-            </label>
-        </div>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">
-                Default checkbox
-            </label>
-        </div>
-
-    </li>
+    <li class="user list-group-item d-flex justify-content-between align-items-center">
+            <div class="form-check">
+                <input checked="true" class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Default checkbox
+                </label>
+            </div>
+        </li>
 </ul>
 
 
@@ -97,22 +73,99 @@
         $(".questions").append(question);
     };
 
+    const getUsers = () => {
+        $.ajax({
+            url: "https://localhost:44314/api/user/",
+            type: "GET",
+            success: function (response) {
+                response.map((user) => {
+                    var userHTML = $('li.user:first').clone();
+                    var label = $('label', userHTML);
+                    var input = $('input', userHTML);
+
+                    input.attr('id', user.Name);
+                    label.text(user.Name);
+                    label.attr('for', input.attr('id'));
+
+                    $('li.user:contains(Default)').remove();
+                    $('ul.users').append(userHTML);
+                });
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
+    const getLessons = () => {
+        $.ajax({
+            url: "https://localhost:44314/api/lessons/",
+            type: "GET",
+            success: function (response) {
+                response.map((lesson) => {
+                    var lessonHTML = $('a.lesson:first').clone();
+
+                    $(lessonHTML).text(lesson.LessonName);
+                    
+
+                    $('a.lesson:contains(Action)').remove();
+                    $('div.lessons').append(lessonHTML);
+                });
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
+
     const Create = () => {
         var data = { 'ExamName': $("#ExamName").val(),'LessonId':"1" };
             $.ajax({
-                url: "https://localhost:44314/api/Exam",
+                url: "https://localhost:44314/api/exam",
                 type: "POST",
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Request-Headers': 'x- requested -with'
                 },
                 data: JSON.stringify(data),
                 success: function (response) {
+                    console.log(response);
+                    var examId = response.ExamId;
+                    var data = [];
 
+                    $('.question').each(function(key, row) {
+                        data.push({
+                            "QuestionContent": $('textarea:first',row).val(),
+                            "Answer": $('textarea:first', row).val(),
+                            "QuestionTye": true,
+                            "Status": true,
+                            "ExamId": examId
+                        });
+                    });
+
+                    $.ajax({
+                        url: "https://localhost:44314/api/question",
+                        type: "POST",
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        data: JSON.stringify(data),
+                        success: function (response) {
+                            window.location.pathname = '/exam';
+                        },
+                        error: function (response) {
+                            window.location.refresh();
+                        }
+                    });
                 },
                 error: function (response) {
                     
                 }
             });
     }
+
+    window.addEventListener('DOMContentLoaded',() => {
+        getUsers();
+        getLessons();
+    });
 </script>

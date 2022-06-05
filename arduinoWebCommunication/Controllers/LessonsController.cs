@@ -7,11 +7,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using Data.Models;
 
 namespace arduinoWebCommunication.Controllers
 {
+    [EnableCors(origins: "https://localhost:44315", headers: "*", methods: "*")]
     public class LessonsController : ApiController
     {
         private Context db = new Context();
@@ -19,7 +21,7 @@ namespace arduinoWebCommunication.Controllers
         // GET: api/Lessons
         public IQueryable<Lesson> GetLessons()
         {
-            return db.Lessons;
+            return db.Lessons.Include(z=>z.Users);
         }
 
         // GET: api/Lessons/5

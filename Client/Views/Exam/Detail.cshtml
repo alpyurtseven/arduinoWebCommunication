@@ -12,10 +12,10 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                            Sınav Adı
+                            Sınav Adı: @Model.ExamName
                         </div>
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                            Ders Adı
+                            Ders AdI: @Model.Lesson.LessonName
                         </div>
                         
                     </div>
@@ -27,7 +27,7 @@
         </div>
     </div>
     <div class="col-md-3 col-sm-12 offset-md-6 d-md-flex justify-content-end" style="height:50px">
-        <a href="#" class="btn btn-light btn-icon-split">
+        <a href="~/exam/edit/@Model.ExamId" class="btn btn-light btn-icon-split">
             <span class="icon text-white-50">
                 <i class="fas fa-arrow-right"></i>
             </span>
@@ -40,21 +40,20 @@
 
     <div class="">
         <div class="row">
-
             <div class="col-md-12">
                 <div class="featured-carousel owl-carousel">
-                    <div class="item">
-                        <div class="blog-entry">
+                     @foreach (var question in Model.Questions)
+                     {
+                         <div class="item">
+                             <div class="blog-entry">
+                                 <div class="text border border-top-0 p-4">
+                                     <h3 class="heading"><a href="#">@question.QuestionContent</a></h3>
+                                     <p>@question.Answer</p>
 
-                            <div class="text border border-top-0 p-4">
-                                <h3 class="heading"><a href="#">Finance And Legal Working Streams Occur Throughout</a></h3>
-                                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-
-                            </div>
-                        </div>
-                    </div>
-
-
+                                 </div>
+                             </div>
+                         </div>
+                     }
                 </div>
             </div>
         </div>
@@ -63,8 +62,12 @@
         <ol class="list-group list-group-numbered" style="overflow-y:scroll;height:300px">
             <li class="list-group-item d-flex justify-content-between align-items-start">
                 <div class="ms-2 me-auto">
-                    <div class="fw-bold">Subheading</div>
-                    Cras justo odio
+                    <div class="fw-bold">Öğrenci Listesi</div>
+                    <br>
+                    @foreach (var student in Model.Lesson.Users)
+                    {
+                        <p>@student.Name</p>
+                    }
                 </div>
 
             </li>

@@ -1,4 +1,4 @@
-﻿
+﻿@model Data.Models.Exam
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,10 +11,10 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                            SINAV ADI
+                            SINAV ADI: @Model.ExamName
                         </div>
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                            DERS ADI
+                            DERS ADI: @Model.Lesson.LessonName
                         </div>
                     </div>
                     <div class="col-auto">
@@ -60,160 +60,38 @@
 
             <div class="col-md-12">
                 <div class="featured-carousel owl-carousel">
-                    <div class="item">
-                        <div class="blog-entry">
+                    @foreach (var question in Model.Questions)
+                    {
+                        <div class="item">
+                            <div class="blog-entry">
 
-                            <div class="text border border-top-0 p-4">
-                                <h3 class="heading"><a href="#">Finance And Legal Working Streams Occur Throughout</a></h3>
-                                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                <div class="d-flex align-items-center mt-4">
-                                    <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
-                                    <p class="ml-auto meta2 mb-0">
-                                        <a href="#" class="mr-2">Admin</a>
-                                        <a href="#" class="meta-chat"><span class="ion-ios-chatboxes"></span> 3</a>
-                                    </p>
+                                <div class="text border border-top-0 p-4">
+                                    <h3 class="heading"><a href="#">@question.QuestionContent</a></h3>
+                                    <p>@question.Answer</p>
+                                    <div class="d-flex align-items-center mt-4">
+                                        <p class="mb-0"><a href="#" class="btn btn-primary">Soruyu Düzenle <span class="ion-ios-arrow-round-forward"></span></a></p>
+                                        <p class="ml-auto meta2 mb-0">
+                                            <a href="#" class="mr-2">@Session["UserType"]</a>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="item">
-                        <div class="blog-entry">
-
-                            <div class="text border border-top-0 p-4">
-                                <h3 class="heading"><a href="#">Finance And Legal Working Streams Occur Throughout</a></h3>
-                                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                <div class="d-flex align-items-center mt-4">
-                                    <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
-                                    <p class="ml-auto meta2 mb-0">
-                                        <a href="#" class="mr-2">Admin</a>
-                                        <a href="#" class="meta-chat"><span class="ion-ios-chatboxes"></span> 3</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <div class="blog-entry">
-
-                            <div class="text border border-top-0 p-4">
-                                <h3 class="heading"><a href="#">Finance And Legal Working Streams Occur Throughout</a></h3>
-                                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                <div class="d-flex align-items-center mt-4">
-                                    <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
-                                    <p class="ml-auto meta2 mb-0">
-                                        <a href="#" class="mr-2">Admin</a>
-                                        <a href="#" class="meta-chat"><span class="ion-ios-chatboxes"></span> 3</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <div class="blog-entry">
-
-                            <div class="text border border-top-0 p-4">
-                                <h3 class="heading"><a href="#">Finance And Legal Working Streams Occur Throughout</a></h3>
-                                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                <div class="d-flex align-items-center mt-4">
-                                    <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
-                                    <p class="ml-auto meta2 mb-0">
-                                        <a href="#" class="mr-2">Admin</a>
-                                        <a href="#" class="meta-chat"><span class="ion-ios-chatboxes"></span> 3</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <div class="blog-entry">
-
-                            <div class="text border border-top-0 p-4">
-                                <h3 class="heading"><a href="#">Finance And Legal Working Streams Occur Throughout</a></h3>
-                                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                <div class="d-flex align-items-center mt-4">
-                                    <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
-                                    <p class="ml-auto meta2 mb-0">
-                                        <a href="#" class="mr-2">Admin</a>
-                                        <a href="#" class="meta-chat"><span class="ion-ios-chatboxes"></span> 3</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <div class="blog-entry">
-
-                            <div class="text border border-top-0 p-4">
-                                <h3 class="heading"><a href="#">Finance And Legal Working Streams Occur Throughout</a></h3>
-                                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                <div class="d-flex align-items-center mt-4">
-                                    <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
-                                    <p class="ml-auto meta2 mb-0">
-                                        <a href="#" class="mr-2">Admin</a>
-                                        <a href="#" class="meta-chat"><span class="ion-ios-chatboxes"></span> 3</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
-        <ol class="list-group list-group-numbered" style="overflow-y:scroll;height:300px">
-            <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                    <div class="fw-bold">Subheading</div>
-                    Cras justo odio
-                </div>
-                <span class="badge bg-primary rounded-pill">14</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                    <div class="fw-bold">Subheading</div>
-                    Cras justo odio
-                </div>
-                <span class="badge bg-primary rounded-pill">14</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                    <div class="fw-bold">Subheading</div>
-                    Cras justo odio
-                </div>
-                <span class="badge bg-primary rounded-pill">14</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                    <div class="fw-bold">Subheading</div>
-                    Cras justo odio
-                </div>
-                <span class="badge bg-primary rounded-pill">14</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                    <div class="fw-bold">Subheading</div>
-                    Cras justo odio
-                </div>
-                <span class="badge bg-primary rounded-pill">14</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                    <div class="fw-bold">Subheading</div>
-                    Cras justo odio
-                </div>
-                <span class="badge bg-primary rounded-pill">14</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                    <div class="fw-bold">Subheading</div>
-                    Cras justo odio
-                </div>
-                <span class="badge bg-primary rounded-pill">14</span>
-            </li>
+        <ol class="list-group list-group-numbered" style="overflow-y: scroll; height: 300px">
+            @foreach (var user in Model.Lesson.Users)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@user.Name</div>
+                        @user.Surname
+                    </div>
+                </li>
+          
+            }
         </ol>
     </div>
 </section>
@@ -305,3 +183,108 @@
         </div>
     </div>
 </div>
+
+<script>
+    var userList = [];
+    var questionList = [];
+    var removedUsers = [];
+    var addedUsers = [];
+    var filteredUsers = [];
+
+    const getUsers = () => {
+        $.ajax({
+            url: "https://localhost:44314/api/lessons/" + @Model.LessonId,
+            type: "GET",
+            success: function (response) {
+                userList = response;
+                filteredUsers = userList.map((user) => {
+                    return user.Lessons;
+                });
+
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
+    const addQuestions =  () => {
+        $.ajax({
+            url: "https://localhost:44314/api/question",
+            type: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: JSON.stringify(questionList),
+            success: function (response) {
+                console.log("Questions are added");
+            }
+        });
+    }
+
+    const removeUsers = () => {
+        $.ajax({
+            url: "https://localhost:44314/api/user",
+            type: "DELETE",
+            success: function (response) {
+                console.log("Question is removed");
+            }
+        });
+    }
+
+    const addUsers =  () => {
+        $.ajax({
+            url: "https://localhost:44314/api/user",
+            type: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: JSON.stringify(addedUsers),
+            success: function (response) {
+                console.log("Questions are added");
+            }
+        });
+    }
+
+    const saveExam = () => {
+        var data = { 'ExamName': @Model.ExamName,'LessonId': @Model.LessonId };
+        $.ajax({
+            url: "https://localhost:44314/api/exam",
+            type: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: JSON.stringify(data),
+            success: function (response) {
+                addQuestions();
+                removeUsers();
+                addUsers();
+            }
+        });
+    }
+
+    const addQuestion = () => {
+        var question = {};
+
+        question.QuestionContent = $('#addQuestion textarea:first').val();
+        question.Answer = $('#addQuestion textarea:last').val();
+        question.QuestionType = true;
+        question.Status = true;
+        question.ExamId = @Model.ExamId;
+
+        questionList.push(question);
+    }
+
+    const addUser = () => {
+        addedUsers.push({});
+    }
+
+    const removeUser = () => {
+        removedUsers.push({});
+    }
+
+    window.addEventListener('DOMContentLoaded',function() {
+        getUsers();
+    });
+
+</script>

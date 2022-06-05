@@ -18,8 +18,6 @@ namespace Data.Models
 
         public DbSet<User> Users { get; set; }
         public DbSet<Exam> Exams { get; set; }
-
-
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<Question> Questions { get; set; }
     }

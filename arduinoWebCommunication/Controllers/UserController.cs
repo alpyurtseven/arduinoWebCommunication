@@ -1,23 +1,22 @@
 ﻿using Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Mvc;
 
 namespace arduinoWebCommunication.Controllers
 {
+    [EnableCors(origins: "https://localhost:44315", headers: "*", methods: "*")]
     public class UserController : ApiController
     {
-        // GET: User
-        public List<User> Get()
+        private Context db = new Context();
+        public IQueryable<User> Get()
         {
-            using (Context cn = new Context())
-            {
-                var users = cn.Users.ToList();
-                return users;
-            }
+            return db.Users.Include(z=>z.Lessons);
         }
 
         // GET: User/Details/5

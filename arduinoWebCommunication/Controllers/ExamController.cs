@@ -14,7 +14,7 @@ using Data.Models;
 
 namespace arduinoWebCommunication.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors(origins: "https://localhost:44315", headers: "*", methods: "*")]
     public class ExamController : ApiController
     {
         private Context db = new Context();
@@ -32,7 +32,7 @@ namespace arduinoWebCommunication.Controllers
             Exam exam;
             try
             {
-                exam = db.Exams.Include(z => z.Lesson).First(x => x.ExamId == id);
+                exam = db.Exams.Include(z => z.Lesson).Include(z=>z.Questions).Include(z=>z.Lesson.Users).First(x => x.ExamId == id);
             }
             catch (Exception e)
             {

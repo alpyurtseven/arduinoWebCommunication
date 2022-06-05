@@ -7,11 +7,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using Data.Models;
 
 namespace arduinoWebCommunication.Controllers
 {
+    [EnableCors(origins: "https://localhost:44315", headers: "*", methods: "*")]
     public class QuestionController : ApiController
     {
         private Context db = new Context();
@@ -72,17 +74,17 @@ namespace arduinoWebCommunication.Controllers
 
         // POST: api/Question
         [ResponseType(typeof(Question))]
-        public IHttpActionResult PostQuestion(Question question)
+        public IHttpActionResult PostQuestion(List<Question> question)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Questions.Add(question);
+            db.Questions.AddRange(question);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = question.QuestionId }, question);
+            return CreatedAtRoute("DefaultApi", new { redirectToUrl = "/exam" }, question);
         }
 
         // DELETE: api/Question/5
