@@ -26,25 +26,15 @@
     </div>
 
     <div class="col-md-8 col-sm-12 offset-md-1 d-md-flex justify-content-between" style="height:50px;">
-        <a href="#" class="btn btn-primary btn-icon-split"  data-toggle="modal" data-target="#removeStudent">
-            <span class="icon text-white-50">
-                <i class="fas fa-trash"></i>
-            </span>
-            <span class="text">Öğrenci Sil</span>
-        </a>
+        
         <a href="#" class="btn btn-warning btn-icon-split"  data-toggle="modal" data-target="#addQuestion">
             <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
             </span>
             <span class="text">Soru Ekle</span>
         </a>
-        <a href="#" class="btn btn-warning btn-icon-split"  data-toggle="modal" data-target="#addStudent">
-            <span class="icon text-white-50">
-                <i class="fas fa-plus"></i>
-            </span>
-            <span class="text">Öğrenci Ekle</span>
-        </a>
-        <a href="#" class="btn btn-success btn-icon-split">
+        
+        <a href="#" onclick="saveExam()" class="btn btn-success btn-icon-split">
             <span class="icon text-white-50">
                 <i class="fas fa-check"></i>
             </span>
@@ -60,6 +50,7 @@
 
             <div class="col-md-12">
                 <div class="featured-carousel owl-carousel">
+
                     @foreach (var question in Model.Questions)
                     {
                         <div class="item">
@@ -69,7 +60,7 @@
                                     <h3 class="heading"><a href="#">@question.QuestionContent</a></h3>
                                     <p>@question.Answer</p>
                                     <div class="d-flex align-items-center mt-4">
-                                        <p class="mb-0"><a href="#" class="btn btn-primary">Soruyu Düzenle <span class="ion-ios-arrow-round-forward"></span></a></p>
+                                        <p class="mb-0"><a href="#" onclick="removeQuestion(@question.QuestionId)"  class="btn btn-primary">Soruyu Sil<span class="ion-ios-arrow-round-forward"></span></a></p>
                                         <p class="ml-auto meta2 mb-0">
                                             <a href="#" class="mr-2">@Session["UserType"]</a>
                                         </p>
@@ -81,47 +72,12 @@
                 </div>
             </div>
         </div>
-        <ol class="list-group list-group-numbered" style="overflow-y: scroll; height: 300px">
-            @foreach (var user in Model.Lesson.Users)
-            {
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                    <div class="ms-2 me-auto">
-                        <div class="fw-bold">@user.Name</div>
-                        @user.Surname
-                    </div>
-                </li>
-          
-            }
-        </ol>
+        
     </div>
 </section>
 
 <!--MODALS-->
-<!-- Öğrenci Ekle Modal -->
-<div class="modal fade" id="addStudent" tabindex="-1" role="dialog" aria-labelledby="addStudent" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Öğrenci Ekle</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                    <label class="form-check-label" for="defaultCheck1">
-                        Default checkbox
-                    </label>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-                <button type="button" class="btn btn-primary">Değişiklikleri Kaydet</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <!--Soru Ekle Modal-->>
 <div class="modal fade" id="addQuestion" tabindex="-1" role="dialog" aria-labelledby="addQuestion" aria-hidden="true">
@@ -152,63 +108,37 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-                <button type="button" class="btn btn-primary">Değişiklikleri Kaydet</button>
+                <button type="button" onclick="addQuestionScript()" class="btn btn-primary">Değişiklikleri Kaydet</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Öğrenci Sil Modal -->
-<div class="modal fade" id="removeStudent" tabindex="-1" role="dialog" aria-labelledby="removeStudent" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Öğrenci Sil</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                    <label class="form-check-label" for="defaultCheck1">
-                        Default checkbox
-                    </label>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-                <button type="button" class="btn btn-primary">Değişiklikleri Kaydet</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <script>
     var userList = [];
     var questionList = [];
-    var removedUsers = [];
+    var removeQuestionsList = [];
     var addedUsers = [];
     var filteredUsers = [];
 
-    const getUsers = () => {
-        $.ajax({
-            url: "https://localhost:44314/api/lessons/" + @Model.LessonId,
-            type: "GET",
-            success: function (response) {
-                userList = response;
-                filteredUsers = userList.map((user) => {
-                    return user.Lessons;
-                });
+    const addQuestionScript = () => {
+        var question = {};
 
-            },
-            error: function (response) {
-                console.log(response);
-            }
-        });
-    }
+        question.QuestionContent = $('#addQuestion textarea:first').val();
+        question.Answer = $('#addQuestion textarea:last').val();
+        question.QuestionType = true;
+        question.Status = true;
+        question.ExamId = @Model.ExamId;
 
-    const addQuestions =  () => {
+        questionList.push(question);
+
+        console.log("question list", questionList);
+    };
+
+
+    const addQuestions = () => {
         $.ajax({
             url: "https://localhost:44314/api/question",
             type: "POST",
@@ -220,34 +150,12 @@
                 console.log("Questions are added");
             }
         });
-    }
+    };
 
-    const removeUsers = () => {
-        $.ajax({
-            url: "https://localhost:44314/api/user",
-            type: "DELETE",
-            success: function (response) {
-                console.log("Question is removed");
-            }
-        });
-    }
 
-    const addUsers =  () => {
-        $.ajax({
-            url: "https://localhost:44314/api/user",
-            type: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            data: JSON.stringify(addedUsers),
-            success: function (response) {
-                console.log("Questions are added");
-            }
-        });
-    }
 
     const saveExam = () => {
-        var data = { 'ExamName': @Model.ExamName,'LessonId': @Model.LessonId };
+        var data = { 'ExamName': "@Model.ExamName", 'LessonId': @Model.LessonId};
         $.ajax({
             url: "https://localhost:44314/api/exam",
             type: "PUT",
@@ -257,34 +165,40 @@
             data: JSON.stringify(data),
             success: function (response) {
                 addQuestions();
-                removeUsers();
-                addUsers();
+                //removeQuestions();
             }
         });
-    }
+    };
 
-    const addQuestion = () => {
+
+
+
+
+    const removeQuestion = (id) => {
         var question = {};
+        question.QuestionId = id;
 
-        question.QuestionContent = $('#addQuestion textarea:first').val();
-        question.Answer = $('#addQuestion textarea:last').val();
-        question.QuestionType = true;
-        question.Status = true;
-        question.ExamId = @Model.ExamId;
+        removeQuestionsList.push(question);
 
-        questionList.push(question);
-    }
+        console.log("list", removeQuestionsList);
+    };
 
-    const addUser = () => {
-        addedUsers.push({});
-    }
+    const removeQuestions = () => {
+        $.ajax({
+            url: "https://localhost:44314/api/question",
+            type: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: JSON.stringify(removeQuestionsList),
+            success: function (response) {
+                console.log("Questions are removed");
+            }
+        });
+    };
 
-    const removeUser = () => {
-        removedUsers.push({});
-    }
-
-    window.addEventListener('DOMContentLoaded',function() {
-        getUsers();
-    });
+    //window.addEventListener('DOMContentLoaded',function() {
+    //    getUsers();
+    //});
 
 </script>
