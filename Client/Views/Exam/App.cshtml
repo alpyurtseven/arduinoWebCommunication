@@ -1,8 +1,11 @@
-﻿
+﻿@model Data.Models.Exam
 @{
     ViewBag.Title = "App";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
+
 
 <div class="row">
     <div class="col-md-3 sol-sm-12">
@@ -27,15 +30,31 @@
 </div>
 <br />
 <div class="card">
-    <h5 class="card-header">Soru 1 - Soru Puanı</h5>
-    <div class="card-body">
-        
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <hr />
-        <h5>Cevap</h5>
-        <p>Cevaplanmadı</p>
-        <hr/>
-        <a href="#" class="btn btn-primary" style="margin-left:90%">Sonraki Soru</a>
-    </div>
+    @foreach (var item in Model.Questions)
+    {
+        <h5 class="card-header">Soru</h5>
+        <div class="card-body">
+
+            <p class="card-text">@item.QuestionContent</p>
+            <hr />
+
+            <hr />
+            <a class="btn btn-primary" id="@item.QuestionId" onclick="handleClick(@item.QuestionId)" style="margin-left:90%;color:#fff">Cevapla</a>
+        </div>
+    }
+
 </div>
 
+<script>
+    const handleClick = (id) => {
+        var questionId = id.toString();
+        var queryQuestionId = "#" + questionId;
+        console.log(queryQuestionId);
+        if ($(queryQuestionId).text() === "Cevapla") {
+            $(queryQuestionId).text('Cevaplanıyor');
+        } else if ($(queryQuestionId).text() === "Cevaplanıyor") {
+            $(queryQuestionId).text('Cevaplandı');
+        }
+        
+    }
+</script>

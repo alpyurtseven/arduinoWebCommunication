@@ -32,17 +32,14 @@ namespace arduinoWebCommunication.Controllers
             Exam exam;
             try
             {
-                exam = db.Exams.Include(z => z.Lesson).Include(z=>z.Questions).Include(z=>z.Lesson.Users).First(x => x.ExamId == id);
+                exam = db.Exams.Include(z => z.Questions).Include(z => z.Lesson).Where(z => z.ExamId == id).First();
             }
             catch (Exception e)
             {
-                exam = null;
-            }
-
-            if (exam == null)
-            {
                 return NotFound();
             }
+
+
 
             return Ok(exam);
         }
