@@ -219,9 +219,10 @@
             return promise;
         };
 
-        window.addEventListener('load',
-            function() {
+        window.onload = function() {
                 sendHttpRequest('GET', '/lesson/index').then((responseData) => { $('#collapseTwo .collapse-inner')[0].innerHTML += responseData })
-            });
+        }
+
+        window.onload()
     })
 </script>

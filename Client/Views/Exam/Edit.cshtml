@@ -108,7 +108,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-                <button type="button" onclick="addQuestionScript()" class="btn btn-primary">Değişiklikleri Kaydet</button>
+                <button type="button" onclick="addQuestionScript()" data-dismiss="modal" class="btn btn-primary">Değişiklikleri Kaydet</button>
             </div>
         </div>
     </div>
@@ -148,6 +148,7 @@
             data: JSON.stringify(questionList),
             success: function (response) {
                 console.log("Questions are added");
+                removeQuestions();
             }
         });
     };
@@ -155,19 +156,7 @@
 
 
     const saveExam = () => {
-        var data = { 'ExamName': "@Model.ExamName", 'LessonId': @Model.LessonId};
-        $.ajax({
-            url: "https://localhost:44314/api/exam",
-            type: "PUT",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            data: JSON.stringify(data),
-            success: function (response) {
-                addQuestions();
-                //removeQuestions();
-            }
-        });
+        addQuestions();
     };
 
 
@@ -178,7 +167,7 @@
         var question = {};
         question.QuestionId = id;
 
-        removeQuestionsList.push(question);
+        removeQuestionsList.push(id);
 
         console.log("list", removeQuestionsList);
     };

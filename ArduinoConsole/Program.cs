@@ -16,17 +16,17 @@ namespace ArduinoConsole
 {
     internal class Program
     {
-        static SerialPort _serialPort;
-        private static readonly HttpClient client = new HttpClient();
-        enum Level
+        private static SerialPort _serialPort;
+        private static readonly HttpClient Client = new HttpClient();
+        private static Answer _answer = new Answer();
+        private static string _answerText = "{";
+
+        static void Main(string[] args)
         {
-            Low,
-            Medium,
-            High
+            Listen();
         }
 
-        private static Answer answer;
-        static void Main(string[] args)
+        public static void Listen()
         {
             _serialPort = new SerialPort();
             _serialPort.PortName = "COM3";
@@ -38,80 +38,58 @@ namespace ArduinoConsole
             while (_serialPort.IsOpen)
             {
                 string a = _serialPort.ReadExisting();
-                if (a != "")
+                if (a.Contains("CBV"))
                 {
-                    if (a == "CST0" || a == "CST1")
-                    {
-                        getPotantiometerTime(a);
-                    }else if(a == "CGV")
-                    {
-                        getPotantiometerValue(a);
-                    }else if (a == "CBV")
-                    {
-                        getButtonAnswer(a);
-                    }
-
-
-
+                    getButtonAnswer("");
                 }
-                Thread.Sleep(200);
+                if (a.Contains("CPV"))
+                {
+                    getPotantiometerValue(100);
+                }
+
+                Thread.Sleep(2000);
             }
         }
 
-        private static void getPotantiometerTime(string command)
+        private static void getPotantiometerValue(int value)
         {
-            if (command == "CST0")
-            {
-
-            }else if (command == "CST1")
-            {
-
-            }
-        }
-
-        private static void getPotantiometerValue(string command)
-        {
-            if (command == "CGV")
-            {
-
-            }
+            _answerText = "Potansiyometre:" + value + ";";
+            updateOrCreateAnswer(_answerText);
         }
 
         private static void getButtonAnswer(string command)
         {
-            if (command == "CBV")
-            {
+            _answerText =  "Button a tıklandı; ";
 
-            }
+            updateOrCreateAnswer(_answerText);
         }
 
         private static void updateOrCreateAnswer(string text)
         {   
-            if (answer == null)
+            if (_answer == null)
             {
-                answer = new Answer();
+                _answer = new Answer();
             }
 
-            new JavaScriptSerializer().Serialize(text);
+            _answer.QuestionID = 1;
+            _answer.UserId = 2;
+            _answer.AnswerText = _answerText + "}";
+            Console.WriteLine(_answer.AnswerText);
 
-            answer.AnswerText = "";
-        }
+            sendAnswer(_answer);
 
-        private static void confirmAnswer()
-        {
-            throw new ArgumentException();
         }
 
         private static async Task sendAnswer(Answer answer)
         {
             var content = JsonConvert.SerializeObject(answer);
-            var buffer = System.Text.Encoding.UTF8.GetBytes(content);
-            var byteContent = new ByteArrayContent(buffer);
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
+            var byteContent = new StringContent(content.ToString(), Encoding.UTF8, "application/json");
+            
+            Client.DefaultRequestHeaders.Accept.Clear();
+            Client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
 
-            var stringTask = client.PostAsync("https://api.github.com/orgs/dotnet/repos",byteContent);
+            var stringTask = Client.PostAsync("https://localhost:44314/api/answer", byteContent);
 
             var msg = await stringTask;
             Console.Write(msg);

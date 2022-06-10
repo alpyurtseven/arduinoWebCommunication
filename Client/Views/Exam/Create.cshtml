@@ -109,7 +109,7 @@
 
 
     const Create = () => {
-        var data = { 'ExamName': $("#ExamName").val(),'LessonId':"1" };
+        var data = { 'ExamName': $("#ExamName").val(),'LessonId':"1",'Status': true };
             $.ajax({
                 url: "https://localhost:44314/api/exam",
                 type: "POST",

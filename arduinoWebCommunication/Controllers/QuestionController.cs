@@ -89,18 +89,22 @@ namespace arduinoWebCommunication.Controllers
 
         // DELETE: api/Question/5
         [ResponseType(typeof(Question))]
-        public IHttpActionResult DeleteQuestion(int id)
+        public IHttpActionResult DeleteQuestion(List<int> ids)
         {
-            Question question = db.Questions.Find(id);
-            if (question == null)
+            foreach (var id in ids)
             {
-                return NotFound();
-            }
+                Question question = db.Questions.Find(id);
+                if (question == null)
+                {
+                    return NotFound();
+                }
 
-            db.Questions.Remove(question);
+                db.Questions.Remove(question);
+            }
+          
             db.SaveChanges();
 
-            return Ok(question);
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)
